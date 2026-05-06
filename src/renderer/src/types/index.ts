@@ -15,7 +15,7 @@ export interface EmotionPoint {
   chapter: number;
   title: string;
   description: string;
-  intensity: number; // 1-10
+  intensity: number;
   characters: string[];
 }
 
@@ -30,10 +30,10 @@ export interface LustPoint {
   chapter: number;
   sceneTitle: string;
   description: string;
-  intensity: number; // 1-10
+  intensity: number;
   characters: string[];
   tags: string[];
-  position: number; // 在章节中的位置百分比
+  position: number;
 }
 
 export interface LustArc {
@@ -46,11 +46,10 @@ export interface Character {
   id: string;
   name: string;
   age: number;
-  avatar?: string;
-  appearance: string;      // 1200+字外貌
+  appearance: string;
   personality: string;
   nsfw: {
-    role: string;           // 攻/受/可攻可受
+    role: string;
     experience: string;
     kinks: string[];
     sensitivePoints: string[];
@@ -67,12 +66,11 @@ export interface Chapter {
   content: string;
   emotionProgress: number;
   lustIntensity: number;
-  lastModified?: string;
 }
 
-export type LogEntry = {
+export interface LogEntry {
   time: string;
   action: string;
   module: string;
   details?: string;
-};
+}

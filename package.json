@@ -1,13 +1,61 @@
 {
-  "name": "xiaoxiaoshuo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "erotic-deducer-srs-v2.2",
+  "version": "2.2.0",
+  "description": "情色推导器 SRS v2.2 - 专业本地成人情色小说创作工具",
+  "main": "out/main/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "pack": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "dependencies": {
+    "electron-store": "^8.2.0",
+    "fs-extra": "^11.2.0",
+    "zustand": "^4.5.5",
+    "reactflow": "^11.11.4",
+    "@tiptap/react": "^2.9.1",
+    "@tiptap/starter-kit": "^2.9.1",
+    "react-markdown": "^9.0.1",
+    "date-fns": "^3.6.0",
+    "uuid": "^10.0.0",
+    "@dnd-kit/core": "^6.1.0",
+    "@dnd-kit/sortable": "^8.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "lucide-react": "^0.441.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.13.3",
+    "electron-vite": "^2.0.0",
+    "typescript": "^5.4.0",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "vite": "^5.2.0"
+  },
+  "build": {
+    "appId": "com.srs.eroticdeductor.v2",
+    "productName": "情色推导器 SRS v2.2",
+    "copyright": "2026",
+    "win": {
+      "target": ["nsis"],
+      "icon": "public/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "files": [
+      "out/**/*",
+      "node_modules/**/*"
+    ]
+  }
 }

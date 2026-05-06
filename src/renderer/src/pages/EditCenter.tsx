@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useProjectStore } from '../store/projectStore';
 import TimelineFlow from '../components/TimelineFlow';
 import ChapterTree from '../components/ChapterTree';
@@ -13,14 +13,8 @@ export default function EditCenter() {
     emotionArc,
     lustArc,
     characters,
-    chapters,
     updateOverview,
-    setEmotionArc,
-    setLustArc,
     addCharacter,
-    updateCharacter,
-    deleteCharacter,
-    updateChapter,
     saveProject,
     addLog
   } = useProjectStore();
@@ -44,7 +38,11 @@ export default function EditCenter() {
       char.id = Date.now().toString();
       addCharacter(char);
     } else {
-      updateCharacter(char);
+      // 直接更新 store 中的角色
+      const state = useProjectStore.getState();
+      const updated = state.characters.map(c => c.id === char.id ? char : c);
+      useProjectStore.setState({ characters: updated });
+      addLog(`更新角色卡: ${char.name}`, "角色管理");
     }
     setShowRoleEditor(false);
     setEditingCharacter(null);
@@ -53,7 +51,9 @@ export default function EditCenter() {
 
   const handleDeleteCharacter = (char: Character) => {
     if (window.confirm(`确定要删除角色 "${char.name}" 吗？此操作不可恢复。`)) {
-      deleteCharacter(char.id);
+      const state = useProjectStore.getState();
+      const filtered = state.characters.filter(c => c.id !== char.id);
+      useProjectStore.setState({ characters: filtered });
       addLog(`删除角色: ${char.name}`, "角色管理");
     }
   };
@@ -110,14 +110,14 @@ export default function EditCenter() {
         {activeTab === 'emotion' && (
           <div className="h-[calc(100vh-220px)]">
             <h3 className="text-2xl mb-4">感情线时间轴</h3>
-            <TimelineFlow type="emotion" data={emotionArc} onChange={setEmotionArc} />
+            <TimelineFlow type="emotion" data={emotionArc} />
           </div>
         )}
 
         {activeTab === 'lust' && (
           <div className="h-[calc(100vh-220px)]">
             <h3 className="text-2xl mb-4">肉欲线强度曲线</h3>
-            <TimelineFlow type="lust" data={lustArc} onChange={setLustArc} />
+            <TimelineFlow type="lust" data={lustArc} />
           </div>
         )}
 

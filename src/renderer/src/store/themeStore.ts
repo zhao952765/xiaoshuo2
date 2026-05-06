@@ -7,11 +7,9 @@ export const useThemeStore = create<{
   toggleTheme: () => void;
 }>((set) => ({
   theme: 'dark',
-  toggleTheme: () => {
-    set((state) => {
-      const newTheme = state.theme === 'dark' ? 'pink-desire' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      return { theme: newTheme };
-    });
-  }
+  toggleTheme: () => set((state) => {
+    const newTheme = state.theme === 'dark' ? 'pink-desire' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    return { theme: newTheme };
+  })
 }));

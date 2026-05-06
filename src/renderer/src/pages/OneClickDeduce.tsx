@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useProjectStore } from '../store/projectStore';
 import { buildOneClickPrompt } from '../lib/prompts';
 import { callLocalLLM } from '../lib/llm';
-import { generateSampleData } from '../lib/projectFS';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function OneClickDeduce() {
@@ -46,15 +45,30 @@ export default function OneClickDeduce() {
     
     createNewProject(newProject);
 
-    // === 新增：自动解析并加载数据 ===
-    const { emotionArc, lustArc } = generateSampleData(newProject.id);
-    // 从 store 获取刚刚创建的项目 ID
-    const projectId = useProjectStore.getState().currentProject?.id || '';
+    // 生成示例弧线数据
+    const sampleEmotionArc = {
+      id: uuidv4(),
+      title: "情感发展弧线",
+      points: [
+        { id: uuidv4(), chapter: 1, title: "初遇", description: "初次相遇，产生好感", intensity: 4, characters: ["女主", "男主"] },
+        { id: uuidv4(), chapter: 5, title: "心动", description: "情感升温", intensity: 7, characters: ["女主", "男主"] },
+        { id: uuidv4(), chapter: 12, title: "告白", description: "深层情感联结", intensity: 9, characters: ["女主", "男主"] },
+      ]
+    };
+    const sampleLustArc = {
+      id: uuidv4(),
+      title: "肉欲线规划",
+      points: [
+        { id: uuidv4(), chapter: 3, sceneTitle: "试探", description: "暧昧前戏", intensity: 5, characters: ["女主", "男主"], tags: ["亲吻", "抚摸"], position: 60 },
+        { id: uuidv4(), chapter: 8, sceneTitle: "初夜", description: "第一次完整肉戏", intensity: 8, characters: ["女主", "男主"], tags: ["插入", "高潮"], position: 75 },
+        { id: uuidv4(), chapter: 15, sceneTitle: "极致", description: "高强度肉戏", intensity: 10, characters: ["女主", "男主"], tags: ["多轮高潮"], position: 90 },
+      ]
+    };
 
     useProjectStore.setState({
       overview: `【LLM生成的故事梗概】\n${accumulated.split('故事梗概')[1]?.slice(0, 800) || '故事梗概已生成，可手动编辑优化。'}`,
-      emotionArc,
-      lustArc,
+      emotionArc: sampleEmotionArc,
+      lustArc: sampleLustArc,
       chapters: Array.from({length: 15}, (_, i) => ({
         id: uuidv4(),
         number: i + 1,
