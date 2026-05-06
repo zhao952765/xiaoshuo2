@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #0F0F12;
+  --color-surface: #1A1A1F;
+  --color-surface-hover: #25252B;
+  --color-border: #2A2A32;
+  --color-text: #E0E0E0;
+  --color-text-secondary: #909098;
+  --color-primary: #FF4D94;
+  --color-primary-dark: #E63E85;
+}
+
+/* 粉欲主题 */
+[data-theme="pink-desire"] {
+  --color-bg: #FFF0F5;
+  --color-surface: #FFE4EC;
+  --color-surface-hover: #FFD6E3;
+  --color-border: #FFC0D6;
+  --color-text: #4A1C2E;
+  --color-text-secondary: #7A3D52;
+  --color-primary: #FF1493;
+  --color-primary-dark: #E6007E;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Microsoft YaHei', system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.prose-invert pre {
+  background: #111113;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 77, 148, 0.2);
+}
+
+[data-theme="pink-desire"] .prose-invert pre {
+  background: #FFF5F8;
+  border: 1px solid var(--color-border);
+}
+
+textarea {
+  font-family: 'Microsoft YaHei', Georgia, serif;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3A3A44;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5A5A66;
+}
+
+[data-theme="pink-desire"] ::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+}
+
+[data-theme="pink-desire"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
